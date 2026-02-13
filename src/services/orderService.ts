@@ -163,3 +163,59 @@ export const createOrder = async (orderData: OrderData) => {
         throw new Error(error.message || "Something went wrong. Please try again.");
     }
 }
+
+// Import Axios for GET request
+import axios from 'axios';
+import { Order, OrderResponse } from '@/types/order.types';
+
+/**
+ * Fetch a single order by ID using Axios
+ * Backend returns: { success: true, data: { ...order } }
+ */
+export const getOrder = async (orderId: string): Promise<Order> => {
+    try {
+        console.log(`🔍 [GET ORDER] Fetching order with ID: ${orderId}`);
+        console.log(`🌐 [GET ORDER] Request URL: ${API_URL}/orders/${orderId}`);
+
+        const response = await axios.get<OrderResponse>(`${API_URL}/orders/${orderId}`);
+
+        console.log('✅ [GET ORDER] Response received:', response.data);
+
+        // Backend returns { success: true, data: order }
+        // So we access response.data.data (first .data is axios, second is backend structure)
+        if (!response.data.success) {
+            throw new Error('Failed to fetch order');
+        }
+
+        const order = response.data.data;
+        console.log('📦 [GET ORDER] Order data extracted:', order);
+
+        return order;
+    } catch (error: any) {
+        console.error('❌ [GET ORDER] Error fetching order:', error);
+
+        if (axios.isAxiosError(error)) {
+            if (error.response) {
+                // Server responded with error status
+                const status = error.response.status;
+                const message = error.response.data?.message || error.message;
+
+                if (status === 404) {
+                    throw new Error('Order not found');
+                } else if (status === 400) {
+                    throw new Error('Invalid order ID');
+                } else if (status === 500) {
+                    throw new Error('Server error. Please try again later.');
+                } else {
+                    throw new Error(message || 'Failed to fetch order');
+                }
+            } else if (error.request) {
+                // Request made but no response
+                throw new Error('Cannot reach server. Please check your connection.');
+            }
+        }
+
+        throw new Error(error.message || 'An unexpected error occurred');
+    }
+};
+
