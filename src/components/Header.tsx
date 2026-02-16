@@ -83,13 +83,6 @@ const Header: React.FC = () => {
 
             </div>
 
-            <Link
-              to="/admin/orders"
-              className="text-sm font-medium hover:text-primary transition-colors mr-4 hidden md:block"
-            >
-              Admin
-            </Link>
-
             <Button
               variant="outline"
               size="sm"

@@ -4,6 +4,7 @@ import { ArrowLeft, Package, User, Mail, Phone, MapPin, Calendar, CreditCard, Cl
 import { Button } from '@/components/ui/button';
 import { getOrder } from '@/services/orderService';
 import { Order } from '@/types/order.types';
+import axios from 'axios';
 
 const OrderDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -42,6 +43,21 @@ const OrderDetails: React.FC = () => {
 
         fetchOrder();
     }, [id]);
+
+    // Payment handler function
+    const handleTemporaryPayment = async () => {
+        try {
+            await axios.patch(
+                `${import.meta.env.VITE_API_URL}/api/orders/${order?._id}/payment-success`
+            );
+
+            alert("Payment Successful!");
+            navigate("/success");
+        } catch (err) {
+            console.error(err);
+            alert("Payment failed");
+        }
+    };
 
     // Loading State
     if (loading) {
@@ -311,8 +327,19 @@ const OrderDetails: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Action Button */}
-                    <div className="flex justify-center">
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                        {/* Show Pay Now button only if payment is pending */}
+                        {order.paymentStatus === 'PENDING' && (
+                            <Button
+                                onClick={handleTemporaryPayment}
+                                className="gap-2"
+                                size="lg"
+                            >
+                                <CreditCard className="w-4 h-4" />
+                                Pay Now
+                            </Button>
+                        )}
                         <Button
                             onClick={() => navigate('/')}
                             variant="outline"

@@ -12,7 +12,6 @@ import Checkout from "./pages/Checkout";
 import OrderSummary from "./pages/OrderSummary";
 import OrderSuccess from "./pages/OrderSuccess";
 import OrderDetails from "./pages/OrderDetails";
-import AdminOrders from "./pages/AdminOrders";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,7 +61,6 @@ const App = () => {
                 <Route path="/order-summary" element={<OrderSummary />} />
                 <Route path="/order-success" element={<OrderSuccess />} />
                 <Route path="/orders/:id" element={<OrderDetails />} />
-                <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </CartProvider>
