@@ -133,7 +133,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
         )}
 
         {/* Quantity Selector */}
-        <div className="flex items-center justify-between gap-2 pt-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
           <div className="flex items-center gap-1 bg-card rounded-lg p-1">
             <button
               onClick={decrementQuantity}

@@ -24,7 +24,7 @@ const Header: React.FC = () => {
                 CK
               </span>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-0">
               <h1 className="font-display font-bold text-foreground text-base md:text-lg leading-tight">
                 CK Homemade Foods
               </h1>
