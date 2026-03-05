@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-// Error Boundary Component
 class ErrorBoundary extends React.Component<
     { children: React.ReactNode },
     { hasError: boolean; error: Error | null }
@@ -29,12 +28,6 @@ class ErrorBoundary extends React.Component<
                     <p style={{ marginTop: '10px', color: '#666' }}>
                         Something went wrong. Please refresh the page.
                     </p>
-                    <details style={{ marginTop: '20px', textAlign: 'left', background: '#f3f4f6', padding: '15px', borderRadius: '8px' }}>
-                        <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>Error Details</summary>
-                        <pre style={{ marginTop: '10px', fontSize: '12px', overflow: 'auto' }}>
-                            {this.state.error?.toString()}
-                        </pre>
-                    </details>
                     <button
                         onClick={() => window.location.reload()}
                         style={{
@@ -45,7 +38,7 @@ class ErrorBoundary extends React.Component<
                             border: 'none',
                             borderRadius: '6px',
                             cursor: 'pointer',
-                            fontSize: '16px'
+                            fontSize: '16px',
                         }}
                     >
                         Reload Page
@@ -65,6 +58,4 @@ if (rootElement) {
             <App />
         </ErrorBoundary>
     );
-} else {
-    console.error('Root element not found!');
 }

@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   Instagram,
   Facebook,
-  Linkedin,
   MessageCircle,
   ShoppingCart,
 } from 'lucide-react';
@@ -60,17 +58,6 @@ const Header: React.FC = () => {
                 <Facebook className="w-5 h-5" />
               </a>
 
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-primary"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-
-              {/* WhatsApp */}
               <a
                 href="https://wa.me/+916361150287"
                 target="_blank"
